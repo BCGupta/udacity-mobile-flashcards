@@ -103,7 +103,8 @@ const MainNavigator = createStackNavigator({
             headerStyle: {
                 backgroundColor: lightGreen
                 // height: 20
-            }
+            },
+            title: 'Deck Details'
         }
     },
     AddCard: {

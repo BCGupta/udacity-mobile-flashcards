@@ -42,6 +42,7 @@ export class AddDeck extends Component {
                 <TouchButton
                     btnStyle={{ backgroundColor: green, borderColor: white }}
                     onPress={this.handleSubmit}
+                    disabled={this.state.text === ''}
                 >
                     Create Deck
                 </TouchButton>
@@ -79,4 +80,7 @@ const styles = StyleSheet.create({
     }
 });
 
-export default connect ( null, { addDeck } )(AddDeck);
+export default connect(
+    null,
+    { addDeck }
+)(AddDeck);
