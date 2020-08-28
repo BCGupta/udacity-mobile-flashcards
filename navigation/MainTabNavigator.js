@@ -12,7 +12,7 @@ import Quiz from '../components/Quiz';
 
 import { darkGray, white, green, lightGreen } from '../utils/colors';
 
-const isIOS = Platform.OS === 'ios' ? true : false;
+const isIOS = Platform.OS === 'android' ? true : false;
 
 const routeConfigs = {
     Decks: {
@@ -47,12 +47,11 @@ const tabNavigatorConfig = {
         bounces: true
     },
     tabBarOptions: {
-        //activeTintColor: isIOS ? green : white,
-        activeTintColor: green,
+        activeTintColor: isIOS ? green : white,
         style: {
+            // height: isIOS ? 56 : 70,
             height: 60,
-            //backgroundColor: isIOS ? white : green,'
-            backgroundColor: white,
+            backgroundColor: isIOS ? white : green,
             shadowColor: 'rgba(0,0,0, 0.24)',
             shadowOffset: {
                 width: 0,
@@ -77,7 +76,9 @@ const tabNavigatorConfig = {
     }
 };
 
-
+// const Tabs = isIOS
+//   ? createBottomTabNavigator(routeConfigs, tabNavigatorConfig)
+//   : createMaterialTopTabNavigator(routeConfigs, tabNavigatorConfig);
 const Tabs = createBottomTabNavigator(routeConfigs, tabNavigatorConfig);
 
 const MainNavigator = createStackNavigator({
@@ -120,8 +121,6 @@ const MainNavigator = createStackNavigator({
             title: 'Quiz'
         }
     }
-},
-{ headerLayoutPreset: 'center'}
-);
+});
 
 export default MainNavigator;
