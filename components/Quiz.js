@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import Platform from "react-native";
+import Constants from "expo-constants";
 import Quiz_Android from './Quiz_Android';
 import Quiz_iOS from './Quiz_iOS';
 
@@ -18,10 +18,9 @@ export class Quiz extends Component {
         const { navigation } = this.props;
         const title = navigation.getParam('title', '');
 
-       /* if (Platform.OS === 'android') {
+       if (Constants.platform.android) {
             return <Quiz_Android title={title} />;
-        } */
-
+        }
         return <Quiz_iOS title={title} />;
 
 
