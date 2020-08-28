@@ -1,6 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
-import { white, textGray } from '../utils/colors';
+import { View, Text, StyleSheet } from 'react-native';
 
 const Deck = () => {
     return (
@@ -17,22 +16,18 @@ const Deck = () => {
 
 const styles = StyleSheet.create({
     deckContainer: {
+        // flex: 1,
         alignItems: 'center',
-        justifyContent: 'center',
-        flexBasis: 120,
-        minHeight: 120,
         borderWidth: 1,
-        borderColor: '#aaa',
-        backgroundColor: white,
-        borderRadius: 5,
-        marginBottom: 10
+        borderColor: 'orange',
+        flexBasis: 120
     },
     deckText: {
         fontSize: 28
     },
     cardText: {
         fontSize: 18,
-        color: textGray
+        color: 'gray'
     }
 });
 
