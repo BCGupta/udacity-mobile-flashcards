@@ -14,9 +14,12 @@ export class DeckDetail extends Component {
         title: 'Deck Details'
     };
     render() {
+        const { navigation } = this.props;
+        const deck = navigation.getParam('deck', 'Undefined deck');
+
         return (
             <View style={styles.container}>
-                <Deck />
+                <Deck deck={deck} />
                 <View>
                     <TouchButton
                         btnStyle={{ backgroundColor: gray, borderColor: textGray }}
@@ -32,13 +35,13 @@ export class DeckDetail extends Component {
                     >
                         Start Quiz
                     </TouchButton>
-                    <TextButton
-                        txtStyle={{ color: red }}
-                        onPress={() => console.log('deck deleted')}
-                    >
-                        Delete Deck
-                    </TextButton>
                 </View>
+                <TextButton
+                    txtStyle={{ color: red }}
+                    onPress={() => console.log('deck deleted')}
+                >
+                    Delete Deck
+                </TextButton>
             </View>
         );
     }
