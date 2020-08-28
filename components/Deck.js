@@ -1,11 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
 import { white, textGray } from '../utils/colors';
+import { connect } from 'react-redux';
 
 const Deck = props => {
     const { deck } = props;
-    console.log('deck', deck);
+
+    if (deck === undefined) {
+        return <View style={styles.deckContainer} />;
+    }
     return (
         <View style={styles.deckContainer}>
             <View>
@@ -18,7 +22,7 @@ const Deck = props => {
     );
 };
 Deck.propTypes = {
-    deck: PropTypes.object.isRequired
+    deck: PropTypes.object
 };
 
 const styles = StyleSheet.create({
@@ -42,4 +46,12 @@ const styles = StyleSheet.create({
     }
 });
 
-export default Deck;
+const mapStateToProps = (state, { id }) => {
+    const deck = state[id];
+
+    return {
+        deck
+    };
+};
+
+export default connect(mapStateToProps)(Deck);
