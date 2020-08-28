@@ -1,7 +1,8 @@
 import React from 'react';
 import { Platform } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import {createBottomTabNavigator, createMaterialTopTabNavigator} from 'react-navigation-tabs';
+import PropTypes from 'prop-types';
+import {createBottomTabNavigator} from 'react-navigation-tabs';
 import {createStackNavigator} from "react-navigation-stack";
 import DeckList from '../components/DeckList';
 import AddDeck from '../components/AddDeck';
