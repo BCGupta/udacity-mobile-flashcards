@@ -23,6 +23,7 @@ export class DeckDetail extends Component {
 
         removeDeck(id);
         removeDeckAS(id);
+
         navigation.goBack();
     };
     render() {
