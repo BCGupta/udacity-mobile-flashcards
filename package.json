@@ -28,6 +28,10 @@
     "react-navigation": "^4.4.0",
     "react-navigation-stack": "^2.8.2",
     "react-navigation-tabs": "^2.9.0",
+    "react-redux": "^7.2.1",
+    "redux": "^4.0.5",
+    "redux-logger": "^3.0.6",
+    "redux-thunk": "^2.3.0",
     "rn-cli": "^0.0.2",
     "schedule": "^0.5.0"
   },
