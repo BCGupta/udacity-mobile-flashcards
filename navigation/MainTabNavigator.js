@@ -7,6 +7,7 @@ import DeckList from '../components/DeckList';
 import AddDeck from '../components/AddDeck';
 import DeckDetail from '../components/DeckDetail';
 import AddCard from '../components/AddCard';
+import Settings from "../components/Settings";
 import Quiz from '../components/Quiz';
 
 import { darkGray, white, green, lightGreen } from '../utils/colors';
@@ -32,11 +33,22 @@ const routeConfigs = {
         navigationOptions: {
             tabBarLabel: 'Add Deck',
             tabBarIcon: ({ tintColor }) => (
-                <Ionicons name="plus-square" size={30} color={tintColor} />
+                <Ionicons name="md-add" size={30} color={tintColor} />
+            )
+        }
+    },
+
+    Settings: {
+        screen: Settings,
+        navigationOptions: {
+            tabBarLabel: 'Settings',
+            tabBarIcon: ({ tintColor }) => (
+                <Ionicons name="md-build" size={30} color={tintColor} />
             )
         }
     }
 };
+
 
 const tabNavigatorConfig = {
     navigationOptions: {
