@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Text, View, StyleSheet } from 'react-native';
-import { gray, white, red, textGray, green } from '../utils/colors';
-import TouchButton from './TouchButton';
-import { resetDecks } from '../utils/api.js';
+import { gray, white, red, textGray, green } from '../utils/appColors';
+import TouchButton from './navigation/TouchButton';
+import { resetDecks } from '../utils/projectAPI.js';
 import { connect } from 'react-redux';
 import { resetStore } from '../actions/index';
 
@@ -26,7 +26,7 @@ export class Settings extends Component {
                 <View style={styles.block}>
                     <View style={styles.blockContainer}>
                         <Text style={styles.blockText}>
-                            This will reset the data back to the original data set.
+                            This will reset back to original settings.
                         </Text>
                         <View style={{ height: 20 }} />
                         <TouchButton

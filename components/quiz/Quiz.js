@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Constants from 'expo-constants';
-import Quiz_Android from './Quiz_Android';
-import Quiz_iOS from './Quiz_iOS';
-import { setLocalNotification, clearLocalNotification } from '../utils/helpers';
+import Quiz_Android from './Android';
+import Quiz_iOS from './ios';
+import { setLocalNotification, clearLocalNotification } from '../../utils/notifications';
 
 export class Quiz extends Component {
     static propTypes = {

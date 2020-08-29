@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Text, View, TouchableOpacity, StyleSheet } from 'react-native';
-import { textGray, white, darkGray, gray } from '../utils/colors';
+import { textGray, white, darkGray, gray } from '../../utils/appColors';
 
 export default function TouchButton({
                                         children,

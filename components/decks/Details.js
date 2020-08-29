@@ -2,14 +2,14 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { View, StyleSheet } from 'react-native';
 import Deck from './Deck';
-import TouchButton from './TouchButton';
-import TextButton from './TextButton';
-import { gray, textGray, green, white, red } from '../utils/colors';
+import TouchButton from '../navigation/TouchButton';
+import TextButton from '../navigation/TextButton';
+import { gray, textGray, green, white, red } from '../../utils/appColors';
 import { connect } from 'react-redux';
-import { removeDeck } from '../actions/index';
-import { removeDeckAS } from '../utils/api';
+import { removeDeck } from '../../actions';
+import { removeDeckAS } from '../../utils/projectAPI';
 
-export class DeckDetail extends Component {
+export class Details extends Component {
     static propTypes = {
         navigation: PropTypes.object.isRequired,
         removeDeck: PropTypes.func.isRequired,
@@ -79,12 +79,7 @@ const mapStateToProps = (state, { navigation }) => {
     const title = navigation.getParam('title', 'undefined');
     const deck = state[title];
 
-    return {
-        deck
-    };
+    return { deck };
 };
 
-export default connect(
-    mapStateToProps,
-    { removeDeck }
-)(DeckDetail);
+export default connect(mapStateToProps, { removeDeck })(Details);

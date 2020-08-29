@@ -1,16 +1,11 @@
 import React, { Component } from 'react';
-import {
-    View,
-    ScrollView,
-    Text,
-    StyleSheet,
-    ViewPagerAndroid
-} from 'react-native';
 import PropTypes from 'prop-types';
-import TextButton from './TextButton';
-import TouchButton from './TouchButton';
-import { gray, green, red, textGray, darkGray, white } from '../utils/colors';
+import { View, Text, StyleSheet, ViewPagerAndroid } from 'react-native';
+import TextButton from '../navigation/TextButton';
+import TouchButton from '../navigation/TouchButton';
+import { gray, green, red, textGray, darkGray, white } from '../../utils/appColors';
 import { connect } from 'react-redux';
+import { withNavigation } from 'react-navigation';
 
 const screen = {
     QUESTION: 'question',
@@ -22,86 +17,91 @@ const answer = {
     INCORRECT: 'incorrect'
 };
 
-export class QuizTest extends Component {
+export class Android extends Component {
     static propTypes = {
-        decks: PropTypes.object.isRequired
+        navigation: PropTypes.object.isRequired,
+        deck: PropTypes.object.isRequired
     };
     state = {
         show: screen.QUESTION,
         correct: 0,
         incorrect: 0,
-        page: 0,
-        questions: Object.values(this.props.decks)[2].questions.length,
-        answered: Array(Object.values(this.props.decks)[2].questions.length).fill(0)
+        questionCount: this.props.deck.questions.length,
+        answered: Array(this.props.deck.questions.length).fill(0)
     };
     handlePageChange = evt => {
-        console.log('evt.nativeEvent.position', evt.nativeEvent.position);
+        // console.log('evt.nativeEvent.position', evt.nativeEvent.position);
         this.setState({
-            show: screen.QUESTION,
-            page: evt.nativeEvent.position
+            show: screen.QUESTION
         });
     };
-    handleAnswer = response => {
-        const { decks } = this.props;
+    handleAnswer = (response, page) => {
         if (response === answer.CORRECT) {
             this.setState(prevState => ({ correct: prevState.correct + 1 }));
         } else {
             this.setState(prevState => ({ incorrect: prevState.incorrect + 1 }));
         }
-        this.setState(prevState => ({
-            answered: prevState.answered.map((val, idx) =>
-                prevState.page === idx ? 1 : val
-            )
-        }));
-        console.log('this.state.answered', this.state.answered);
+        this.setState(
+            prevState => ({
+                answered: prevState.answered.map((val, idx) => (page === idx ? 1 : val))
+            }),
+            () => {
+                // console.log('this.state.answered', this.state.answered);
+                const { correct, incorrect, questionCount } = this.state;
 
-        const { correct, incorrect } = this.state;
-        // console.log('correct:', correct);
-        // console.log('incorrect:', incorrect);
-
-        const questions = Object.values(decks)[2].questions;
-        const numQuestions = questions.length - 1;
-
-        if (numQuestions === correct + incorrect) {
-            this.setState({ show: screen.RESULT });
-        }
+                if (questionCount === correct + incorrect) {
+                    this.setState({ show: screen.RESULT });
+                } else {
+                    // console.log('this.state.page', this.state.page);
+                    this.viewPager.setPage(page + 1);
+                    this.setState(prevState => ({
+                        show: screen.QUESTION
+                    }));
+                }
+            }
+        );
     };
     handleReset = () => {
         this.setState(prevState => ({
             show: screen.QUESTION,
             correct: 0,
             incorrect: 0,
-            // answered: Array(Object.values(this.props.decks)[2].questions.length).fill(
-            answered: Array(prevState.questions).fill(0)
+            answered: Array(prevState.questionCount).fill(0)
         }));
     };
     render() {
-        const { decks } = this.props;
+        const { questions } = this.props.deck;
         const { show } = this.state;
-        const questions = Object.values(decks)[2].questions;
 
-        // console.log('decks', decks);
-        // console.log('questions', questions);
-        // console.log('questions.length', questions.length);
+        if (questions.length === 0) {
+            return (
+                <View style={styles.pageStyle}>
+                    <View style={styles.block}>
+                        <Text style={[styles.count, { textAlign: 'center' }]}>
+                            You cannot take a quiz because there are no cards in the deck.
+                        </Text>
+                        <Text style={[styles.count, { textAlign: 'center' }]}>
+                            Please add some cards and try again.
+                        </Text>
+                    </View>
+                </View>
+            );
+        }
 
         if (this.state.show === screen.RESULT) {
-            const { correct, incorrect } = this.state;
-            const total = correct + incorrect;
-            const percent = ((correct / total) * 100).toFixed(0);
+            const { correct, questionCount } = this.state;
+            const percent = ((correct / questionCount) * 100).toFixed(0);
             const resultStyle =
                 percent >= 70 ? styles.resultTextGood : styles.resultTextBad;
 
             return (
-                <View style={styles.container}>
-                    <View style={styles.block}>
-                        <Text style={styles.count}>Done</Text>
-                    </View>
+                <View style={styles.pageStyle}>
                     <View style={styles.block}>
                         <Text style={[styles.count, { textAlign: 'center' }]}>
                             Quiz Complete!
                         </Text>
                         <Text style={resultStyle}>
-                            {correct} / {total} correct
+                            {correct} / {questionCount} correct
                         </Text>
                     </View>
                     <View style={styles.block}>
@@ -120,10 +120,12 @@ export class QuizTest extends Component {
                         <TouchButton
                             btnStyle={{ backgroundColor: gray, borderColor: textGray }}
                             txtStyle={{ color: textGray }}
-                            // onPress={() => this.props.navigation.goBack()}
-                            onPress={() => console.log('go back')}
+                            onPress={() => {
+                                this.handleReset();
+                                this.props.navigation.navigate('Home');
+                            }}
                         >
-                            Back to Deck
+                            Home
                         </TouchButton>
                     </View>
                 </View>
@@ -131,20 +133,13 @@ export class QuizTest extends Component {
         }
 
         return (
-            // <ScrollView style={styles.container} pagingEnabled={true}>
-            //   {Object.values(decks).map(deck => {
-            //     return (
-            //       <View style={styles.screen} key={deck.title}>
-            //         <Text style={styles.largeText}>{JSON.stringify(deck)}</Text>
-            //       </View>
-            //     );
-            //   })}
-            // </ScrollView>
             <ViewPagerAndroid
                 style={styles.container}
                 scrollEnabled={true}
-                // onPageSelected={pos => this.handlePageChange(pos)}
                 onPageSelected={this.handlePageChange}
+                ref={viewPager => {
+                    this.viewPager = viewPager;
+                }}
             >
                 {questions.map((question, idx) => (
                     <View style={styles.pageStyle} key={idx}>
@@ -183,16 +178,14 @@ export class QuizTest extends Component {
                         <View>
                             <TouchButton
                                 btnStyle={{ backgroundColor: green, borderColor: white }}
-                                onPress={() => this.handleAnswer(answer.CORRECT)}
-                                // disabled={true}
+                                onPress={() => this.handleAnswer(answer.CORRECT, idx)}
                                 disabled={this.state.answered[idx] === 1}
                             >
                                 Correct
                             </TouchButton>
                             <TouchButton
                                 btnStyle={{ backgroundColor: red, borderColor: white }}
-                                onPress={() => this.handleAnswer(answer.INCORRECT)}
-                                // disabled={true}
+                                onPress={() => this.handleAnswer(answer.INCORRECT, idx)}
                                 disabled={this.state.answered[idx] === 1}
                             >
                                 Incorrect
@@ -239,14 +232,14 @@ const styles = StyleSheet.create({
         paddingRight: 16,
         flexGrow: 1
     },
+    questionWrapper: {
+        flex: 1,
+        justifyContent: 'center'
+    },
     questionText: {
         textDecorationLine: 'underline',
         textAlign: 'center',
         fontSize: 20
-    },
-    questionWrapper: {
-        flex: 1,
-        justifyContent: 'center'
     },
     resultTextGood: {
         color: green,
@@ -260,8 +253,12 @@ const styles = StyleSheet.create({
     }
 });
 
-const mapStateToProps = state => ({ decks: state });
+const mapStateToProps = (state, { title }) => {
+    const deck = state[title];
 
-const mapDispatchToProps = {};
+    return {
+        deck
+    };
+};
 
-export default connect(mapStateToProps, mapDispatchToProps)(QuizTest);
+export default withNavigation(connect(mapStateToProps)(Android));

@@ -9,10 +9,10 @@ import {
 } from 'react-native';
 import { connect } from 'react-redux';
 import Deck from './Deck';
-import { gray, green } from '../utils/colors';
-import { handleInitialData } from '../actions/index';
+import { gray, green } from '../../utils/appColors';
+import { handleInitialData } from '../../actions';
 
-export class DeckList extends Component {
+export class ListOfDecks extends Component {
     static propTypes = {
         navigation: PropTypes.object.isRequired,
         handleInitialData: PropTypes.func.isRequired,
@@ -64,7 +64,4 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = state => ({ decks: state });
 
-export default connect(
-    mapStateToProps,
-    { handleInitialData }
-)(DeckList);
+export default connect(mapStateToProps, { handleInitialData } )(ListOfDecks);

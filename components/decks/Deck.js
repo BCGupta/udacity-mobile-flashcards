@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { View, Text, StyleSheet } from 'react-native';
-import { white, textGray } from '../utils/colors';
+import { white, textGray } from '../../utils/appColors';
 import { connect } from 'react-redux';
 
 const Deck = props => {
@@ -21,6 +21,7 @@ const Deck = props => {
         </View>
     );
 };
+
 Deck.propTypes = {
     deck: PropTypes.object
 };
@@ -49,9 +50,8 @@ const styles = StyleSheet.create({
 const mapStateToProps = (state, { id }) => {
     const deck = state[id];
 
-    return {
-        deck
-    };
+    return { deck };
+
 };
 
 export default connect(mapStateToProps)(Deck);

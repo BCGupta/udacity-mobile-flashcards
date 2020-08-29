@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Text, View, TextInput, StyleSheet } from 'react-native';
-import TouchButton from './TouchButton';
-import { gray, green } from '../utils/colors';
+import TouchButton from '../navigation/TouchButton';
+import { gray, green } from '../../utils/appColors';
 import { connect } from 'react-redux';
-import { addCardToDeck } from '../actions/index';
-import { addCardToDeckAS } from '../utils/api';
+import { addCardToDeck } from '../../actions';
+import { addCardToDeckAS } from '../../utils/projectAPI';
 
-export class AddCard extends Component {
+export class NewCard extends Component {
     static propTypes = {
         navigation: PropTypes.object.isRequired,
         title: PropTypes.string.isRequired,
@@ -122,4 +122,4 @@ const mapStateToProps = (state, { navigation }) => {
 export default connect(
     mapStateToProps,
     { addCardToDeck }
-)(AddCard);
+)(NewCard);

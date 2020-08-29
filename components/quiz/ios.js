@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { View, Text, StyleSheet, ScrollView, Dimensions } from 'react-native';
-import TextButton from './TextButton';
-import TouchButton from './TouchButton';
-import { gray, green, red, textGray, darkGray, white } from '../utils/colors';
+import TextButton from '../navigation/TextButton';
+import TouchButton from '../navigation/TouchButton';
+import { gray, green, red, textGray, darkGray, white } from '../../utils/appColors';
 import { connect } from 'react-redux';
 import { withNavigation } from 'react-navigation';
 
@@ -18,7 +18,7 @@ const answer = {
 };
 const SCREEN_WIDTH = Dimensions.get('window').width;
 
-class Quiz_iOS extends Component {
+class Ios extends Component {
     static propTypes = {
         navigation: PropTypes.object.isRequired,
         deck: PropTypes.object.isRequired
@@ -264,4 +264,4 @@ const mapStateToProps = (state, { title }) => {
     };
 };
 
-export default withNavigation(connect(mapStateToProps)(Quiz_iOS));
+export default withNavigation(connect(mapStateToProps)(Ios));

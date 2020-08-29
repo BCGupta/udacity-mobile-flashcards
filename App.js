@@ -7,8 +7,8 @@ import logger from 'redux-logger';
 import { Provider } from 'react-redux';
 import reducer from './reducers/index';
 import Constants from 'expo-constants';
-import AppNavigator from './navigation/AppNavigator';
-import { setLocalNotification } from './utils/helpers';
+import AppNavigator from './components/navigation/AppNavigation';
+import { setLocalNotification } from './utils/notifications';
 
 const store = createStore(
     reducer /* preloadedState, */,
@@ -34,10 +34,7 @@ export default class App extends React.Component {
         return (
             <Provider store={store}>
                 <View style={styles.container}>
-                    <FlashcardStatusBar
-                        backgroundColor="green"
-                        barStyle="light-content"
-                    />
+                    <FlashcardStatusBar backgroundColor= "green" barStyle= "light-content" />
                     <AppNavigator />
                 </View>
             </Provider>

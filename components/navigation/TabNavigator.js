@@ -4,14 +4,14 @@ import { Ionicons } from '@expo/vector-icons';
 import PropTypes from 'prop-types';
 import {createBottomTabNavigator} from 'react-navigation-tabs';
 import {createStackNavigator} from "react-navigation-stack";
-import DeckList from '../components/DeckList';
-import AddDeck from '../components/AddDeck';
-import DeckDetail from '../components/DeckDetail';
-import AddCard from '../components/AddCard';
-import Settings from "../components/Settings";
-import Quiz from '../components/Quiz';
+import DeckList from '../decks/ListOfDecks';
+import AddDeck from '../decks/NewDeck';
+import DeckDetail from '../decks/Details';
+import AddCard from '../decks/NewCard';
+import Settings from "../Settings";
+import Quiz from '../quiz/Quiz';
 
-import { darkGray, white, green, lightGreen } from '../utils/colors';
+import { darkGray, white, green, lightGreen } from '../../utils/appColors';
 
 const isIOS = Platform.OS === 'android' ? true : false;
 

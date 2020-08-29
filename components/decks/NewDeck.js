@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Text, View, StyleSheet, TextInput } from 'react-native';
-import TouchButton from './TouchButton';
-import { gray, green, white, textGray } from '../utils/colors';
+import TouchButton from '../navigation/TouchButton';
+import { gray, green, white, textGray } from '../../utils/appColors';
 import { connect } from 'react-redux';
-import { addDeck } from '../actions/index';
-import { saveDeckTitleAS } from '../utils/api';
+import { addDeck } from '../../actions';
+import { saveDeckTitleAS } from '../../utils/projectAPI';
 import { StackActions, NavigationActions } from 'react-navigation';
 
-export class AddDeck extends Component {
+export class NewDeck extends Component {
     static propTypes = {
         navigation: PropTypes.object.isRequired,
         addDeck: PropTypes.func.isRequired
@@ -102,4 +102,4 @@ const styles = StyleSheet.create({
 export default connect(
     null,
     { addDeck }
-)(AddDeck);
+)(NewDeck);
